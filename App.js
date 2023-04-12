@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from "react-native";
 import { useState } from "react";
 
 export default function App() {
@@ -10,7 +10,7 @@ export default function App() {
   };
 
   const handleAddText = () => {
-    console.log("text", text);
+    setTasks((currentTaks) => [...currentTaks, { name: text, _id: Math.random().toString() }]);
   };
   return (
     <View style={styles.container}>
@@ -22,12 +22,18 @@ export default function App() {
           <TextInput style={styles.textInput} placeholder="Heloo there..." onChangeText={handleTextInput} />
         </View>
         <View style={styles.button}>
-          <Button color="#fff" title="Add Task" onPress={handleAddText} />
+          <Button title="Add Task" onPress={handleAddText} />
         </View>
       </View>
-      <View>
-        <Text style={styles.text}>{text}</Text>
-      </View>
+      <FlatList
+        data={tasks}
+        renderItem={(task) => {
+          return <Text style={styles.task}>{task.item.name}</Text>;
+        }}
+        keyExtractor={(item, index) => {
+          return item._id;
+        }}
+      />
     </View>
   );
 }
@@ -53,6 +59,10 @@ const styles = StyleSheet.create({
     color: "white",
     padding: 16,
     marginTop: 16,
+  },
+  task: {
+    color: "white",
+    padding: 16,
   },
   textInput: {
     color: "white",
