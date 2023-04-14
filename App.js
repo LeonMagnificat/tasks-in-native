@@ -4,7 +4,10 @@ import InputSection from "./components/InputSection";
 import TasksList from "./components/TasksList";
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState([false]);
   const [tasks, setTasks] = useState([]);
+
+  const showModal = () => {};
 
   const handleAddText = (text) => {
     setTasks((currentTaks) => [...currentTaks, { name: text, _id: Math.random().toString() }]);
@@ -15,7 +18,9 @@ export default function App() {
         <Text style={styles.text}>Create a task</Text>
       </View>
       <InputSection handleAddText={handleAddText} />
-      <TasksList tasks={tasks} />
+      <View style={styles.taskContainer}>
+        <TasksList tasks={tasks} />
+      </View>
     </View>
   );
 }
@@ -23,36 +28,19 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#cccc",
+    backgroundColor: "#D8DEF3",
     paddingTop: 16,
     // alignItems: "center",
     // justifyContent: "center",
   },
-  miniContainer: {
-    flexDirection: "row",
-    borderWidth: 1,
-    alignItems: "center",
-  },
 
-  inputContainer: {
-    flex: 1,
-  },
   text: {
-    color: "white",
+    color: "black",
     padding: 16,
-    marginTop: 16,
+    marginTop: 26,
+    fontSize: 22,
   },
-
-  textInput: {
-    color: "white",
-    padding: 16,
-    margin: 16,
-    borderWidth: 1,
-    borderColor: "white",
-  },
-  button: {
-    padding: 16,
-    margin: 16,
-    color: "#fff",
+  taskContainer: {
+    flex: 1,
   },
 });
